@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DEINT_2Trim_Examen.MVVM.Views.CompraView"
+             Title="CompraView">
+    <Grid RowDefinitions=".15*, auto, auto, .1*" Padding="10" RowSpacing="10">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" WidthRequest="100">
+            <Image Source="nike_logo.png" TranslationX="0" TranslationY="0"/>
+        </Grid>
+        <Frame Grid.Row="1" Padding="5">
+            <Grid  RowDefinitions="auto, *">
+                <Label Grid.Row="0" Text="{Binding Total, StringFormat='{}{0:C}'}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                <Label Grid.Row="1" Text="{Binding Fecha}" TextColor="Grey" HorizontalOptions="Center" />
+            </Grid>
+        </Frame>
+        <Frame Grid.Row="2">
+            <Grid RowSpacing="10" RowDefinitions="auto, auto, auto, *">
+                <ScrollView Grid.Row="0">
+                    <CollectionView ItemsSource="{Binding Compras}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid RowDefinitions="*" ColumnDefinitions="*, *">
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="20">
+                                        <Image WidthRequest="30" Source="{Binding Imagen}" />
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding Modelo}" TextColor="Grey"/>
+                                            <Label Text="{Binding Categoria}" FontAttributes="Bold"/>
+                                            <Line BackgroundColor="LightGrey"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Precio, StringFormat='{}{0:C}'}" FontAttributes="Bold" HorizontalOptions="End" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+                <Label Grid.Row="1" Text="Subtotal" FontAttributes="Bold" HorizontalOptions="Start"/>
+                <Label Grid.Row="1" Text="{Binding Subtotal, StringFormat='{}{0:C}'}" FontAttributes="Bold" HorizontalOptions="End"/>
+                <HorizontalStackLayout Grid.Row="2" Spacing="20" VerticalOptions="Center">
+                    <Label Text="Descuento" HorizontalOptions="Start" FontAttributes="Bold"/>
+                    <Stepper Value="{Binding ContDescuento}" Minimum="0" Maximum="99" HorizontalOptions="Start"/>
+                    <Label Text="{Binding ContDescuento, StringFormat='{0}%'}" BackgroundColor="Grey" />
+                </HorizontalStackLayout>
+                <Label Grid.Row="2" Text="{Binding Descuento, StringFormat='{}{0:C}'}" TextColor="Grey" FontAttributes="Bold" HorizontalOptions="End"/>
+                <VerticalStackLayout Grid.Row="3">
+                    <Label Text="Nike Store" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="www.nike.com" TextColor="Grey" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+        <Grid Grid.Row="3" RowDefinitions="*" ColumnDefinitions="*, *" ColumnSpacing="50">
+            <Button x:Name="btnLuego" Command="{Binding ClickCommand}" CommandParameter="1" Grid.Row="0" Grid.Column="0" MaximumHeightRequest="40" Text="Pagar Luego" Margin="2" BackgroundColor="LightGrey" TextColor="Black" FontAttributes="Bold"/>
+            <Button x:Name="btnAhora" Command="{Binding ClickCommand}" CommandParameter="2" Grid.Row="0" Grid.Column="1" MaximumHeightRequest="40" Text="Pagar Ahora" Margin="2" BackgroundColor="Black" TextColor="White" FontAttributes="Bold"/>
+        </Grid>
+    </Grid>
+</ContentPage>
